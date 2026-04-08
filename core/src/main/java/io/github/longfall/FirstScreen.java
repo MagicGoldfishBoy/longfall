@@ -1,9 +1,69 @@
 package io.github.longfall;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.kotcrab.vis.ui.widget.VisLabel;
+
+import dev.lyze.flexbox.FlexBox;
+import io.github.orioncraftmc.meditate.YogaNode;
+import io.github.orioncraftmc.meditate.enums.YogaEdge;
+import io.github.orioncraftmc.meditate.enums.YogaFlexDirection;
+import io.github.orioncraftmc.meditate.enums.YogaWrap;
 
 /** First screen of the application. Displayed after the application is created. */
 public class FirstScreen implements Screen {
+
+    final Main game;
+
+    Texture backgroundTexture;
+
+    Stage stage = new Stage(new ScreenViewport());
+    FlexBox titleFlexBox = new FlexBox();
+
+	public FirstScreen(final Main game) {
+
+		this.game = game;
+
+        Skin CurrentSkin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        backgroundTexture = new Texture(Gdx.files.internal("ui/graphics/ui/LongfallMainMenuBackground.png"));
+
+        titleFlexBox.setFillParent(true);
+        titleFlexBox.getRoot()
+            .setFlexDirection(YogaFlexDirection.ROW)
+            .setWrap(YogaWrap.WRAP);
+        stage.addActor(titleFlexBox);
+
+        YogaNode titleParentNode = titleFlexBox.add()
+            .setFlexDirection(YogaFlexDirection.COLUMN)
+            .setBorder(YogaEdge.ALL, 25)
+            .setBackground(CurrentSkin.newDrawable("textfield"))
+            .setMargin(YogaEdge.LEFT, 50)
+            .setMargin(YogaEdge.TOP, 75);
+
+		Label title = new Label("Longfall", CurrentSkin);
+            title.setAlignment(Align.center);
+            title.setColor(Color.SCARLET);
+            title.setFontScale(2.0f);
+            titleFlexBox.addAsChild(titleParentNode, title);
+
+        stage.setDebugAll(true);
+        // Label label = new Label("Longfall", CurrentSkin);
+        // label.setAlignment(Align.center);
+        // flexBox.add(label).setSize(100);
+	}
+
+    
+
     @Override
     public void show() {
         // Prepare your screen here.
@@ -11,7 +71,7 @@ public class FirstScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // Draw your screen here. "delta" is the time since last render in seconds.
+        draw();
     }
 
     @Override
@@ -21,6 +81,7 @@ public class FirstScreen implements Screen {
         if(width <= 0 || height <= 0) return;
 
         // Resize your screen here. The parameters represent the new window size.
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -40,6 +101,15 @@ public class FirstScreen implements Screen {
 
     @Override
     public void dispose() {
-        // Destroy screen's assets here.
+        backgroundTexture.dispose();
     }
+    private void draw() {
+        ScreenUtils.clear(Color.RED);
+        game.batch.begin();
+        game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        game.batch.end();
+        stage.act();
+        stage.draw();
+    }
+    
 }

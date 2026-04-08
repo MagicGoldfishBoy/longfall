@@ -1,11 +1,18 @@
 package io.github.longfall;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kotcrab.vis.ui.VisUI;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
+
+    public SpriteBatch batch;
+
     @Override
     public void create() {
-        setScreen(new FirstScreen());
+        VisUI.load();
+        batch = new SpriteBatch();
+        setScreen(new FirstScreen(this));
     }
 }
