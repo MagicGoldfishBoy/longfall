@@ -50,6 +50,10 @@ public class FirstScreen implements Screen {
     TextButton playButton;
     
     YogaNode optionsButtonNode;
+    TextButton optionsButton;
+
+    YogaNode quitButtonNode;
+    TextButton quitButton;
 
     Skin CurrentSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
@@ -58,7 +62,6 @@ public class FirstScreen implements Screen {
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
-        //multiplexer.addProcessor(yourOtherProcessor);
         Gdx.input.setInputProcessor(multiplexer);
 
         camera = new OrthographicCamera();
@@ -121,20 +124,33 @@ public class FirstScreen implements Screen {
         playButton.addListener(playButtonListener);
         playButton.setTouchable(Touchable.enabled);
 
+        optionsButton = new TextButton("Options", playStyle);
+        optionsButton.getLabel().setFontScale(2.5f);
 
-        optionsButtonNode = optionsFlexBox.add()
+        optionsButtonNode = optionsFlexBox.add(optionsButton)
             .setFlexDirection(YogaFlexDirection.COLUMN)
             .setBorder(YogaEdge.ALL, 25)
-            .setBackground(CurrentSkin.newDrawable("button-normal"))
             .setMargin(YogaEdge.LEFT, 50)
-            .setMargin(YogaEdge.TOP, 275);
+            .setMargin(YogaEdge.TOP, 275)
+            .setWidth(200)
+            .setHeight(75);
 
-        Label optionsButton = new Label("Options", CurrentSkin);
-            optionsButton.setAlignment(Align.center);
-            optionsButton.setColor(Color.BROWN);
-            optionsButton.setFontScale(2.5f);
-            optionsFlexBox.addAsChild(optionsButtonNode, optionsButton);
+        optionsButton.addListener(optionsButtonListener);
+        optionsButton.setTouchable(Touchable.enabled);
 
+        quitButton = new TextButton("Quit", playStyle);
+        quitButton.getLabel().setFontScale(2.5f);
+
+        quitButtonNode = optionsFlexBox.add(quitButton)
+            .setFlexDirection(YogaFlexDirection.COLUMN)
+            .setBorder(YogaEdge.ALL, 25)
+            .setMargin(YogaEdge.LEFT, 50)
+            .setMargin(YogaEdge.TOP, 275)
+            .setWidth(200)
+            .setHeight(75);
+
+        quitButton.addListener(quitButtonListener);
+        quitButton.setTouchable(Touchable.enabled);
 
         //stage.setDebugAll(true);
 	}
@@ -143,6 +159,20 @@ public class FirstScreen implements Screen {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             System.out.println("Play button clicked!");
+        }
+    };
+
+    ClickListener optionsButtonListener = new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            System.out.println("Options button clicked!");
+        }
+    };
+    
+    ClickListener quitButtonListener = new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            Gdx.app.exit();
         }
     };
     
