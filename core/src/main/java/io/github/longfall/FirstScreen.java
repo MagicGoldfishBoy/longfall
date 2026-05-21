@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -46,6 +47,12 @@ public class FirstScreen implements Screen {
 
         Skin CurrentSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        TextureAtlas atlas = new TextureAtlas("./ui/uiskin.atlas");
+        // System.out.println(System.getProperty("user.dir"));
+        // System.out.flush();
+
+        CurrentSkin.addRegions(atlas);
+
         backgroundTexture = new Texture(Gdx.files.internal("ui/graphics/ui/LongfallMainMenuBackground.png"));
 
         titleFlexBox.setFillParent(true);
@@ -63,9 +70,16 @@ public class FirstScreen implements Screen {
 
 		Label title = new Label("Longfall", CurrentSkin);
             title.setAlignment(Align.center);
-            title.setColor(Color.SCARLET);
+            title.setColor(Color.BROWN);
             title.setFontScale(2.0f);
             titleFlexBox.addAsChild(titleParentNode, title);
+
+        YogaNode playButtonNode = titleFlexBox.add()
+            .setFlexDirection(YogaFlexDirection.COLUMN)
+            .setBorder(YogaEdge.ALL, 25)
+            .setBackground(CurrentSkin.newDrawable("button-normal"))
+            .setMargin(YogaEdge.LEFT, 50)
+            .setMargin(YogaEdge.TOP, 75);
 
         stage.setDebugAll(true);
         // Label label = new Label("Longfall", CurrentSkin);
