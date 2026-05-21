@@ -3,6 +3,8 @@ package io.github.longfall;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.widget.VisLabel;
 
 import dev.lyze.flexbox.FlexBox;
@@ -22,6 +26,9 @@ import io.github.orioncraftmc.meditate.enums.YogaWrap;
 /** First screen of the application. Displayed after the application is created. */
 public class FirstScreen implements Screen {
 
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
     final Main game;
 
     Texture backgroundTexture;
@@ -30,6 +37,10 @@ public class FirstScreen implements Screen {
     FlexBox titleFlexBox = new FlexBox();
 
 	public FirstScreen(final Main game) {
+
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(1280, 720, camera); 
+        viewport.apply();
 
 		this.game = game;
 
@@ -71,6 +82,11 @@ public class FirstScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
         draw();
     }
 
@@ -81,6 +97,7 @@ public class FirstScreen implements Screen {
         if(width <= 0 || height <= 0) return;
 
         // Resize your screen here. The parameters represent the new window size.
+        viewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
     }
 
@@ -106,7 +123,7 @@ public class FirstScreen implements Screen {
     private void draw() {
         ScreenUtils.clear(Color.RED);
         game.batch.begin();
-        game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        game.batch.draw(backgroundTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         game.batch.end();
         stage.act();
         stage.draw();
