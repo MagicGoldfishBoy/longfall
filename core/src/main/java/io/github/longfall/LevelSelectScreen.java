@@ -40,9 +40,14 @@ public class LevelSelectScreen implements Screen {
 
     FlexBox optionsFlexBox = new FlexBox();
 
+    FlexBox levelSelectFlexBox = new FlexBox();
+
 
     YogaNode backButtonNode;
     TextButton backButton;
+
+    YogaNode level1ButtonNode;
+    TextButton level1Button;
 
 
     public LevelSelectScreen(Main game) {
@@ -68,17 +73,20 @@ public class LevelSelectScreen implements Screen {
 
         backgroundTexture = new Texture(Gdx.files.internal("ui/graphics/ui/LongfallMainMenuBackground.png"));
 
+
         optionsFlexBox.setFillParent(true);
         optionsFlexBox.getRoot()
             .setFlexDirection(YogaFlexDirection.ROW)
             .setWrap(YogaWrap.WRAP);
         stage.addActor(optionsFlexBox);
 
+
         TextButton.TextButtonStyle defaultStyle = new TextButton.TextButtonStyle();
         defaultStyle.font = CurrentSkin.getFont("default-font");
         defaultStyle.fontColor = Color.BROWN;
         defaultStyle.up = CurrentSkin.newDrawable("button-normal");
         defaultStyle.down = CurrentSkin.newDrawable("button-normal-pressed");
+
 
         backButton = new TextButton("Back", defaultStyle);
         backButton.getLabel().setFontScale(2.5f);
@@ -94,13 +102,31 @@ public class LevelSelectScreen implements Screen {
         backButton.addListener(BackButtonListener);
         backButton.setTouchable(Touchable.enabled);
 
+
+        levelSelectFlexBox.setFillParent(true);
+        levelSelectFlexBox.getRoot()
+            .setFlexDirection(YogaFlexDirection.ROW)
+            .setWrap(YogaWrap.WRAP);
+        stage.addActor(levelSelectFlexBox);
+
+
+        level1Button = new TextButton("", defaultStyle);
+        level1Button.getLabel().setFontScale(2.5f);
+
+        level1ButtonNode = levelSelectFlexBox.add(level1Button)
+            .setFlexDirection(YogaFlexDirection.COLUMN)
+            .setBorder(YogaEdge.ALL, 25)
+            .setMargin(YogaEdge.LEFT, 250)
+            .setMargin(YogaEdge.TOP, 75)
+            .setWidth(256)
+            .setHeight(256);
+
     }
 
     ClickListener BackButtonListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            dispose();
-            game.setScreen(new FirstScreen(game));
+            Gdx.app.postRunnable(() -> game.setScreen(new FirstScreen(game)));
         }
     };
 
@@ -122,13 +148,12 @@ public class LevelSelectScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.
-        // In that case, we don't resize anything, and wait for the window to be a normal size before updating.
+
         if(width <= 0 || height <= 0) return;
 
-        // Resize your screen here. The parameters represent the new window size.
         viewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
+
     }
 
     @Override
@@ -148,10 +173,9 @@ public class LevelSelectScreen implements Screen {
 
     @Override
     public void dispose() {
-
         backgroundTexture.dispose();
         stage.dispose();
-
+        CurrentSkin.dispose();
     }
     
 }

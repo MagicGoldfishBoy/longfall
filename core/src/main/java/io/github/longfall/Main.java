@@ -14,5 +14,10 @@ public class Main extends Game {
         VisUI.load();
         batch = new SpriteBatch();
         setScreen(new FirstScreen(this));
+
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+        throwable.printStackTrace();
+        System.err.flush();
+        });
     }
 }
