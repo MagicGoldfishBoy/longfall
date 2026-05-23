@@ -169,6 +169,7 @@ public class FirstScreen implements Screen {
     ClickListener quitButtonListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
+            dispose();
             Gdx.app.exit();
         }
     };
@@ -176,7 +177,8 @@ public class FirstScreen implements Screen {
 
     @Override
     public void show() {
-        // Prepare your screen here.
+        Music music = new Music();
+        music.create();
     }
 
     @Override
