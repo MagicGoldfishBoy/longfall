@@ -116,8 +116,7 @@ public class OptionsScreen implements Screen {
     ClickListener BackButtonListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            dispose();
-            game.setScreen(new FirstScreen(game));
+            Gdx.app.postRunnable(() -> game.setScreen(new FirstScreen(game)));
         }
     };
 

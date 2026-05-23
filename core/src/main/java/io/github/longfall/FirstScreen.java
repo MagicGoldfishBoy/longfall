@@ -177,8 +177,7 @@ public class FirstScreen implements Screen {
 
     @Override
     public void show() {
-        Music music = new Music();
-        music.create();
+        // This method is called when this screen becomes the current screen for a Game.
     }
 
     @Override
