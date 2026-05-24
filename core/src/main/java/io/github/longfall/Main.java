@@ -1,6 +1,7 @@
 package io.github.longfall;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kotcrab.vis.ui.VisUI;
 
@@ -20,7 +21,9 @@ public class Main extends Game {
         batch = new SpriteBatch();
 
         miniAudio = new MiniAudio();
-        bgMusic = miniAudio.createSound("sound/songs/Buried_Souls.ogg");
+       // bgMusic = miniAudio.createSound(Gdx.files.internal("sound/songs/Buried_Souls.ogg").path());
+        String soundPath = Gdx.files.local("assets/sound/songs/Buried_Souls.ogg").file().getAbsolutePath();
+        bgMusic = miniAudio.createSound(soundPath);
         bgMusic.setLooping(true);
         bgMusic.setVolume(1.0f);
         bgMusic.play();

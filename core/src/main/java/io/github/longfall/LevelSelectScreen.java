@@ -48,7 +48,7 @@ public class LevelSelectScreen implements Screen {
     TextButton backButton;
 
     YogaNode level1ButtonNode;
-    Button level1Button;
+    Button petuniaFallsButton;
 
 
     public LevelSelectScreen(Main game) {
@@ -68,14 +68,20 @@ public class LevelSelectScreen implements Screen {
         viewport = new FitViewport(1280, 720, camera); 
         viewport.apply();
 
-        TextureAtlas atlas = new TextureAtlas("./ui/uiskin.atlas");
-        TextureAtlas levelSelectAtlas = new TextureAtlas("./ui/levelBadgeSkin.atlas");
+        TextureAtlas atlas = new TextureAtlas("ui/uiskin.atlas");
+        TextureAtlas levelSelectAtlas = new TextureAtlas("ui/levelBadgeSkin.atlas");
 
         CurrentSkin.addRegions(atlas);
         CurrentSkin.addRegions(levelSelectAtlas);
 
         backgroundTexture = new Texture(Gdx.files.internal("ui/graphics/ui/LongfallMainMenuBackground.png"));
 
+
+        levelSelectFlexBox.setFillParent(true);
+        levelSelectFlexBox.getRoot()
+            .setFlexDirection(YogaFlexDirection.ROW)
+            .setWrap(YogaWrap.WRAP);
+        stage.addActor(levelSelectFlexBox);
 
         optionsFlexBox.setFillParent(true);
         optionsFlexBox.getRoot()
@@ -106,21 +112,15 @@ public class LevelSelectScreen implements Screen {
         backButton.setTouchable(Touchable.enabled);
 
 
-        levelSelectFlexBox.setFillParent(true);
-        levelSelectFlexBox.getRoot()
-            .setFlexDirection(YogaFlexDirection.ROW)
-            .setWrap(YogaWrap.WRAP);
-        stage.addActor(levelSelectFlexBox);
-
-        Button.ButtonStyle levelButtonStyle = new Button.ButtonStyle();
-        levelButtonStyle.up = CurrentSkin.newDrawable("level-petunia-falls");
-        levelButtonStyle.down = CurrentSkin.newDrawable("level-petunia-falls-down");
-        levelButtonStyle.over = CurrentSkin.newDrawable("level-petunia-falls-over");
+        Button.ButtonStyle petuniaFallsButtonStyle = new Button.ButtonStyle();
+        petuniaFallsButtonStyle.up = CurrentSkin.newDrawable("level-petunia-falls");
+        petuniaFallsButtonStyle.down = CurrentSkin.newDrawable("level-petunia-falls-down");
+        petuniaFallsButtonStyle.over = CurrentSkin.newDrawable("level-petunia-falls-over");
 
 
-        level1Button = new Button(levelButtonStyle);
+        petuniaFallsButton = new Button(petuniaFallsButtonStyle);
 
-        level1ButtonNode = levelSelectFlexBox.add(level1Button)
+        level1ButtonNode = levelSelectFlexBox.add(petuniaFallsButton)
             .setFlexDirection(YogaFlexDirection.COLUMN)
             .setBorder(YogaEdge.ALL, 25)
             .setMargin(YogaEdge.LEFT, 250)
@@ -129,7 +129,7 @@ public class LevelSelectScreen implements Screen {
             .setHeight(256);
 
     }
-
+//Jaspit
     ClickListener BackButtonListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {

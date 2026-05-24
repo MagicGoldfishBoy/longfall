@@ -64,7 +64,7 @@ public class OptionsScreen implements Screen {
         viewport = new FitViewport(1280, 720, camera); 
         viewport.apply();
 
-        TextureAtlas atlas = new TextureAtlas("./ui/uiskin.atlas");
+        TextureAtlas atlas = new TextureAtlas("ui/uiskin.atlas");
 
         CurrentSkin.addRegions(atlas);
 

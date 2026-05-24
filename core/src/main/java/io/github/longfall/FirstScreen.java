@@ -65,7 +65,7 @@ public class FirstScreen implements Screen {
 
 		this.game = game;
 
-        TextureAtlas atlas = new TextureAtlas("./ui/uiskin.atlas");
+        TextureAtlas atlas = new TextureAtlas("ui/uiskin.atlas");
         // System.out.println(System.getProperty("user.dir"));
         // System.out.flush();
 

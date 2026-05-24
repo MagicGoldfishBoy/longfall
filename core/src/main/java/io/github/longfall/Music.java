@@ -1,6 +1,7 @@
 package io.github.longfall;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
 import games.rednblack.miniaudio.MASound;
@@ -13,12 +14,12 @@ public class Music implements ApplicationListener {
 
     @Override
     public void create() {
-        miniAudio = new MiniAudio();
-        maSound = miniAudio.createSound("sound/songs/Buried_Souls.ogg");
-        maSound.setLooping(true);
-        maSound.setVolume(1.0f);
-        maSound.play();
-        maSound.fadeIn(60);
+        // miniAudio = new MiniAudio();
+        // maSound = miniAudio.createSound(Gdx.files.internal("sound/songs/Buried_Souls.ogg").path());
+        // maSound.setLooping(true);
+        // maSound.setVolume(1.0f);
+        // maSound.play();
+        // maSound.fadeIn(60);
     }
 
     @Override

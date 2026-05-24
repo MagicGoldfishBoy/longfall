@@ -86,6 +86,10 @@ jar {
   }
 // this last step may help on some OSes that need extra instruction to make runnable JARs.
   doLast {
+            copy {
+            from rootProject.file("assets")
+            into layout.buildDirectory.dir("libs/assets")
+        }
     file(archiveFile).setExecutable(true, false)
   }
 }
@@ -201,3 +205,8 @@ startScripts.classpath = project.tasks.jar.outputs.files
 if(enableGraalNative == 'true') {
   apply from: file("nativeimage.gradle")
 }
+
+run {
+    workingDir = rootProject.file("assets").parentFile
+}
+
