@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -47,7 +48,7 @@ public class LevelSelectScreen implements Screen {
     TextButton backButton;
 
     YogaNode level1ButtonNode;
-    TextButton level1Button;
+    Button level1Button;
 
 
     public LevelSelectScreen(Main game) {
@@ -68,8 +69,10 @@ public class LevelSelectScreen implements Screen {
         viewport.apply();
 
         TextureAtlas atlas = new TextureAtlas("./ui/uiskin.atlas");
+        TextureAtlas levelSelectAtlas = new TextureAtlas("./ui/levelBadgeSkin.atlas");
 
         CurrentSkin.addRegions(atlas);
+        CurrentSkin.addRegions(levelSelectAtlas);
 
         backgroundTexture = new Texture(Gdx.files.internal("ui/graphics/ui/LongfallMainMenuBackground.png"));
 
@@ -109,9 +112,13 @@ public class LevelSelectScreen implements Screen {
             .setWrap(YogaWrap.WRAP);
         stage.addActor(levelSelectFlexBox);
 
+        Button.ButtonStyle levelButtonStyle = new Button.ButtonStyle();
+        levelButtonStyle.up = CurrentSkin.newDrawable("level-petunia-falls");
+        levelButtonStyle.down = CurrentSkin.newDrawable("level-petunia-falls-down");
+        levelButtonStyle.over = CurrentSkin.newDrawable("level-petunia-falls-over");
 
-        level1Button = new TextButton("", defaultStyle);
-        level1Button.getLabel().setFontScale(2.5f);
+
+        level1Button = new Button(levelButtonStyle);
 
         level1ButtonNode = levelSelectFlexBox.add(level1Button)
             .setFlexDirection(YogaFlexDirection.COLUMN)

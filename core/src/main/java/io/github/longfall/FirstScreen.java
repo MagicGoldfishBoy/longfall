@@ -178,6 +178,7 @@ public class FirstScreen implements Screen {
     @Override
     public void show() {
         // This method is called when this screen becomes the current screen for a Game.
+        //game.bgMusic.stop();
     }
 
     @Override
