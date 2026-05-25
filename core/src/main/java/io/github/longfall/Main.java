@@ -36,4 +36,11 @@ public class Main extends Game {
         System.err.flush();
         });
     }
+    @Override
+    public void dispose() {
+        batch.dispose();
+        bgMusic.dispose();
+        miniAudio.dispose();
+        VisUI.dispose();
+    }
 }

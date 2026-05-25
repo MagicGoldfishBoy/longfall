@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -47,8 +48,11 @@ public class LevelSelectScreen implements Screen {
     YogaNode backButtonNode;
     TextButton backButton;
 
-    YogaNode level1ButtonNode;
+    YogaNode petuniaFallsButtonNode;
     Button petuniaFallsButton;
+
+    YogaNode jaspitFallsButtonNode;
+    Button jaspitFallsButton;
 
 
     public LevelSelectScreen(Main game) {
@@ -112,15 +116,14 @@ public class LevelSelectScreen implements Screen {
         backButton.setTouchable(Touchable.enabled);
 
 
-        Button.ButtonStyle petuniaFallsButtonStyle = new Button.ButtonStyle();
+        ButtonStyle petuniaFallsButtonStyle = new Button.ButtonStyle();
         petuniaFallsButtonStyle.up = CurrentSkin.newDrawable("level-petunia-falls");
         petuniaFallsButtonStyle.down = CurrentSkin.newDrawable("level-petunia-falls-down");
         petuniaFallsButtonStyle.over = CurrentSkin.newDrawable("level-petunia-falls-over");
 
-
         petuniaFallsButton = new Button(petuniaFallsButtonStyle);
 
-        level1ButtonNode = levelSelectFlexBox.add(petuniaFallsButton)
+        petuniaFallsButtonNode = levelSelectFlexBox.add(petuniaFallsButton)
             .setFlexDirection(YogaFlexDirection.COLUMN)
             .setBorder(YogaEdge.ALL, 25)
             .setMargin(YogaEdge.LEFT, 250)
@@ -128,12 +131,48 @@ public class LevelSelectScreen implements Screen {
             .setWidth(256)
             .setHeight(256);
 
+        petuniaFallsButton.addListener(petuniaFallsButtonListener);
+        petuniaFallsButton.setTouchable(Touchable.enabled);
+
+
+        ButtonStyle jaspitFallsButtonStyle = new Button.ButtonStyle();
+        jaspitFallsButtonStyle.up = CurrentSkin.newDrawable("level-jaspit");
+        jaspitFallsButtonStyle.down = CurrentSkin.newDrawable("level-jaspit");
+        jaspitFallsButtonStyle.over = CurrentSkin.newDrawable("level-jaspit");
+
+        jaspitFallsButton = new Button(jaspitFallsButtonStyle);
+
+        jaspitFallsButtonNode = levelSelectFlexBox.add(jaspitFallsButton)
+            .setFlexDirection(YogaFlexDirection.COLUMN)
+            .setBorder(YogaEdge.ALL, 25)
+            .setMargin(YogaEdge.LEFT, 25)
+            .setMargin(YogaEdge.TOP, 75)
+            .setWidth(256)
+            .setHeight(256);
+
+        jaspitFallsButton.addListener(jaspitFallsButtonListener);
+        jaspitFallsButton.setTouchable(Touchable.enabled);
+
     }
 //Jaspit
     ClickListener BackButtonListener = new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             Gdx.app.postRunnable(() -> game.setScreen(new FirstScreen(game)));
+        }
+    };
+
+    ClickListener petuniaFallsButtonListener = new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            System.out.println("Petunia Falls Button clicked!");
+        }
+    };
+
+    ClickListener jaspitFallsButtonListener = new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            System.out.println("Jaspit Falls Button clicked!");
         }
     };
 
