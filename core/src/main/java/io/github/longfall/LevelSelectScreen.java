@@ -137,8 +137,8 @@ public class LevelSelectScreen implements Screen {
 
         ButtonStyle jaspitFallsButtonStyle = new Button.ButtonStyle();
         jaspitFallsButtonStyle.up = CurrentSkin.newDrawable("level-jaspit");
-        jaspitFallsButtonStyle.down = CurrentSkin.newDrawable("level-jaspit");
-        jaspitFallsButtonStyle.over = CurrentSkin.newDrawable("level-jaspit");
+        jaspitFallsButtonStyle.down = CurrentSkin.newDrawable("level-jaspit-down");
+        jaspitFallsButtonStyle.over = CurrentSkin.newDrawable("level-jaspit-over");
 
         jaspitFallsButton = new Button(jaspitFallsButtonStyle);
 
